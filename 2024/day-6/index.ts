@@ -48,7 +48,7 @@ function getPatrolPathUniquePositions() {
 
 // PART 2
 
-function isGuardStuckInLoop(map: Array<string>, guardPosition: number[], obstaclePosition: number[]) {
+function isGuardStuckInLoop(map: Array<string>, guardPosition: number[]) {
   const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
   let directionIndex = 0;
   const cache = new Map<string, boolean>();
@@ -96,7 +96,7 @@ function getPatrolPathObstaclePositions() {
 
       const mapInputWithCustomObstacle = setObstacle(obstaclePosition);
 
-      const isGuardStuck = isGuardStuckInLoop(mapInputWithCustomObstacle, guardPosition, obstaclePosition)
+      const isGuardStuck = isGuardStuckInLoop(mapInputWithCustomObstacle, guardPosition)
       if (isGuardStuck) {
         count++;
       }
