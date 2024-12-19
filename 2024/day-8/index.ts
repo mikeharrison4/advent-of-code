@@ -25,35 +25,11 @@ function applyAntiNodesPart1(frequencyPositions: Array<number[]>, uniqueAntiNode
   }
 }
 
-function part1GetUniqueAntiNodePositions() {
-  const frequencies: Record<string, Array<number[]>> = {}
-  const uniqueAntiNodePositions = new Set<string>();
-
-  for (let row = 0; row < puzzleInput.length; row++) {
-    for (let col = 0; col < puzzleInput[row].length; col++) {
-      const item = puzzleInput[row][col];
-
-      if (item !== '.') {
-        if (frequencies[item]) {
-          frequencies[item] = [...frequencies[item], [row, col]];
-          applyAntiNodesPart1(frequencies[item], uniqueAntiNodePositions)
-        } else {
-          frequencies[item] = [[row, col]];
-        }
-      }
-
-    }
-  }
-
-  return uniqueAntiNodePositions.size;
-}
-
 function applyAntiNodesPart2(frequencyPositions: Array<number[]>, uniqueAntiNodePositions: Set<string>) {
   for (let i = 0; i < frequencyPositions.length; i++) {
     for (let j = i + 1; j < frequencyPositions.length; j++) {
       let frequencyOne = frequencyPositions[i];
       let frequencyTwo = frequencyPositions[j];
-
       const constantRowDiff = frequencyTwo[0] - frequencyOne[0];
       const constantColDiff = frequencyTwo[1] - frequencyOne[1];
 
@@ -75,7 +51,7 @@ function applyAntiNodesPart2(frequencyPositions: Array<number[]>, uniqueAntiNode
   }
 }
 
-function part2GetUniqueAntiNodePositions() {
+function getUniqueAntiNodePositions(applyAntiNodes: (frequencies:  Array<number[]>, uniqueAntiNodePositions: Set<string>) => void) {
   const frequencies: Record<string, Array<number[]>> = {}
   const uniqueAntiNodePositions = new Set<string>();
 
@@ -86,7 +62,7 @@ function part2GetUniqueAntiNodePositions() {
       if (item !== '.') {
         if (frequencies[item]) {
           frequencies[item] = [...frequencies[item], [row, col]];
-          applyAntiNodesPart2(frequencies[item], uniqueAntiNodePositions)
+          applyAntiNodes(frequencies[item], uniqueAntiNodePositions)
         } else {
           frequencies[item] = [[row, col]];
         }
@@ -97,5 +73,13 @@ function part2GetUniqueAntiNodePositions() {
   return uniqueAntiNodePositions.size;
 }
 
-console.log(part1GetUniqueAntiNodePositions());
-console.log(part2GetUniqueAntiNodePositions());
+function part1Result() {
+  return getUniqueAntiNodePositions(applyAntiNodesPart1);
+}
+
+function part2Result() {
+  return getUniqueAntiNodePositions(applyAntiNodesPart2);
+}
+
+console.log(part1Result());
+console.log(part2Result());
