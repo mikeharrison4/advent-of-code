@@ -27,7 +27,6 @@ function produceIndividualBlocks() {
 
 function moveFileBlocks() {
   const individualBlocks = produceIndividualBlocks();
-  console.log(individualBlocks);
   let leftPointer = 0;
   let rightPointer = individualBlocks.length - 1;
 
